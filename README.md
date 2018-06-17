@@ -15,8 +15,7 @@ List all outdated Ruby Gems. Based on the [outdated-brew-formulae](http://traces
 #### Dependencies:
 Must install Ruby.
 
-brew update
-brew install ruby
+brew update && brew install ruby
 
 ## outdated-ports
 List all outdated Mac Ports. Based on the [outdated-brew-formulae](http://tracesof.net/uebersicht-widgets/#outdated-brew-formulae) widget.
