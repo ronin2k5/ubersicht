@@ -5,6 +5,8 @@ For those who don't know, Ubersicht is a desktop widget engine for macOS. It let
 
 For more information on Ubersicht, you can check out their [official website](http://tracesof.net/uebersicht/).
 
+If installing any of these widgets, remember to open the source and edit the command path and widget position as requred.
+
 ## istats-simple.widget
 Simple display of system stats (CPU temperature, Fan speeds, etc...) from [iStats](https://github.com/Chris911/iStats) in table form.
 #### Dependencies:

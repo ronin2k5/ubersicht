@@ -1,4 +1,4 @@
-command: "/usr/local/bin/istats --no-graphs"
+command: "/Users/<username>/.rvm/gems/ruby-<version>/wrappers/istats --no-graphs"
 
 refreshFrequency: 1000
 
