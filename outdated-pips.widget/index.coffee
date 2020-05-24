@@ -1,11 +1,11 @@
-command: "/Users/ronin/.rvm/rubies/ruby-2.5.1/bin/gem outdated | awk '{print $1;}'"
+command: "/usr/local/bin/pip3 list --outdated | awk '{print $1;}'"
 #command: "/usr/local/bin/brew outdated"
 
 refreshFrequency: 3600000 # 60 minutes by default
 
 style: """
   // Position the widget on your screen
-  top 400px
+  top 30px
   left 1250px
 
   // Change the style of the widget
@@ -41,7 +41,7 @@ style: """
 
 render: -> """
   <div class="container">
-    <div class="widget-title">Outdated Ports</div>
+    <div class="widget-title">Outdated PIPs</div>
     <div id="ports" class="list">
     </div>
   </div>
@@ -49,17 +49,17 @@ render: -> """
 
 update: (output, domElement) ->
   
-  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Gems</div><div class="howtoupdate">Update with:<br />sudo gem update --system && gem update</div><div id="ports" class="list"></div></div>'
+  domElement.innerHTML = '''<div class="container"><div class="widget-title">Outdated PIPs</div><div class="howtoupdate">Update with:<br />sudo pip3 list --outdated  | awk '{printf "%s",$1;printf "==";print $3}' > temp.txt; sed '1d' temp.txt > temp2.txt;sed '1d' temp2.txt > requirements.txt && pip3 install --upgrade -r requirements.txt</div><div id="pips" class="list"></div></div>'''
   
-  ports = output.split('\n')
-  list = $(domElement).find('#ports')
+  pips = output.split('\n')
+  list = $(domElement).find('#pips')
   
-  addPort = (port) ->
-    item = "<div class=\"list-item\">#{port}</div>"
+  addpip = (pip) ->
+    item = "<div class=\"list-item\">#{pip}</div>"
     list.append item
   
-  if ports.length == 0
-    addPort "No outdated ports!"
+  if pips.length == 0
+    addpip "No outdated pips!"
   else
-    for port, i in ports
-      addPort port
+    for pip, i in pips
+      addpip pip

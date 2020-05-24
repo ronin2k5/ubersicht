@@ -1,12 +1,12 @@
-command: "/opt/local/bin/port outdated | awk '{print $1;}'"
+command: "/opt/local/bin/port outdated | awk 'NR > 1 {print $1;}'"
 #command: "/usr/local/bin/brew outdated"
 
 refreshFrequency: 3600000 # 60 minutes by default
 
 style: """
   // Position the widget on your screen
-  top 400px
-  left 230px
+  top 150px
+  left 1400px
 
   // Change the style of the widget
   color #fff
@@ -33,6 +33,11 @@ style: """
     font-size 10px
     text-transform uppercase
     font-weight bold
+
+  .howtoupdate
+    font-size 9px
+    color: rgba(#ff0, 1)
+
 """
 
 render: -> """
@@ -45,7 +50,7 @@ render: -> """
 
 update: (output, domElement) ->
   
-  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Ports</div><div id="ports" class="list"></div></div>'
+  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Ports</div><div class="howtoupdate">Update with:<br />sudo port -v selfupdate && port -p upgrade outdated</div><div id="ports" class="list"></div></div>'
   
   ports = output.split('\n')
   list = $(domElement).find('#ports')

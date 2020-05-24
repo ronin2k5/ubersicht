@@ -1,12 +1,15 @@
-command: "/Users/ronin/.rvm/rubies/ruby-2.5.1/bin/gem outdated | awk '{print $1;}'"
-#command: "/usr/local/bin/brew outdated"
+# command: "/usr/local/bin/npm outdated | awk '{print $1;}'"
+command: """
+          outdated-node-packages/outdatednodes.sh
+"""
+# command: "/usr/local/lib/node_modules/npm/bin/npm-cli.js outdated | awk '{print $1;}'"
 
 refreshFrequency: 3600000 # 60 minutes by default
 
 style: """
   // Position the widget on your screen
   top 400px
-  left 1250px
+  left 1500px
 
   // Change the style of the widget
   color #fff
@@ -33,33 +36,29 @@ style: """
     font-size 10px
     text-transform uppercase
     font-weight bold
-
-  .howtoupdate
-    font-size 9px
-    color: rgba(#ff0, 1)
 """
 
 render: -> """
   <div class="container">
     <div class="widget-title">Outdated Ports</div>
-    <div id="ports" class="list">
+    <div id="npm" class="list">
     </div>
   </div>
 """
 
 update: (output, domElement) ->
   
-  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Gems</div><div class="howtoupdate">Update with:<br />sudo gem update --system && gem update</div><div id="ports" class="list"></div></div>'
+  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Node Packages</div><div id="npm" class="list"></div></div>'
   
-  ports = output.split('\n')
-  list = $(domElement).find('#ports')
+  npms = output.split('\n')
+  list = $(domElement).find('#npm')
   
-  addPort = (port) ->
-    item = "<div class=\"list-item\">#{port}</div>"
+  addnpm = (npm) ->
+    item = "<div class=\"list-item\">#{npm}</div>"
     list.append item
   
-  if ports.length == 0
-    addPort "No outdated ports!"
+  if npms.length == 0
+    addnpm "No outdated npm packages!"
   else
-    for port, i in ports
-      addPort port
+    for npm, i in npms
+      addnpm npm

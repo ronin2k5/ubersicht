@@ -1,4 +1,5 @@
-command: "/Users/ronin/.rvm/rubies/ruby-2.5.1/bin/gem outdated | awk '{print $1;}'"
+#WRS-202002251430: added line in output to display instructions for updating, and related style
+command: "/usr/local/bin/brew update > /dev/null && /usr/local/bin/brew outdated"
 #command: "/usr/local/bin/brew outdated"
 
 refreshFrequency: 3600000 # 60 minutes by default
@@ -6,7 +7,7 @@ refreshFrequency: 3600000 # 60 minutes by default
 style: """
   // Position the widget on your screen
   top 400px
-  left 1250px
+  left 1050px
 
   // Change the style of the widget
   color #fff
@@ -41,25 +42,25 @@ style: """
 
 render: -> """
   <div class="container">
-    <div class="widget-title">Outdated Ports</div>
-    <div id="ports" class="list">
+    <div class="widget-title">Outdated Brew Formulae</div>
+    <div id="formulae" class="list">
     </div>
   </div>
 """
 
 update: (output, domElement) ->
   
-  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Gems</div><div class="howtoupdate">Update with:<br />sudo gem update --system && gem update</div><div id="ports" class="list"></div></div>'
+  domElement.innerHTML = '<div class="container"><div class="widget-title">Outdated Brew Formulae</div><div class="howtoupdate">Update with:<br />brew update && brew upgrade</div><div id="formulae" class="list"></div></div>'
   
-  ports = output.split('\n')
-  list = $(domElement).find('#ports')
+  formulae = output.split('\n')
+  list = $(domElement).find('#formulae')
   
-  addPort = (port) ->
-    item = "<div class=\"list-item\">#{port}</div>"
+  addFormula = (formula) ->
+    item = "<div class=\"list-item\">#{formula}</div>"
     list.append item
   
-  if ports.length == 0
-    addPort "No outdated ports!"
+  if formulae.length == 0
+    addFormula "No outdated formulae!"
   else
-    for port, i in ports
-      addPort port
+    for formula, i in formulae
+      addFormula formula
